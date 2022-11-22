@@ -2,7 +2,7 @@
  * @Author: wangzhenggui jianjia.wzg@raycloud.com
  * @Date: 2022-11-21 15:09:46
  * @LastEditors: wangzhenggui jianjia.wzg@raycloud.com
- * @LastEditTime: 2022-11-22 08:51:57
+ * @LastEditTime: 2022-11-22 17:39:56
  * @FilePath: /monitor/src/report/index.js
  * @Description: 
  * 
@@ -23,6 +23,7 @@ export const send = (data = [], immediately = false) => {
     if (!config.url) {
         return console.error('监控系统,必须拥有url属性配置')
     }
+    
     const body = JSON.stringify({
         id: `${options.appId}_${new Date().getTime()}_${getUUid()}`,
         options,

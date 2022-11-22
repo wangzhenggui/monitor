@@ -2,7 +2,7 @@
  * @Author: wangzhenggui jianjia.wzg@raycloud.com
  * @Date: 2022-11-21 15:09:46
  * @LastEditors: wangzhenggui jianjia.wzg@raycloud.com
- * @LastEditTime: 2022-11-22 15:29:46
+ * @LastEditTime: 2022-11-22 17:01:00
  * @FilePath: /monitor/src/error/index.js
  * @Description: 
  * 
@@ -54,7 +54,9 @@ const watchConsoleError = () => {
             subType: 'console-error',
             startTime: now,
             startTimeFm: formatTime(now),
-            info: args,
+            info: {
+                content: args,
+            },
             pageSource: getPageInfo(),
         })
     }
