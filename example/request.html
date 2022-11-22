@@ -1,0 +1,56 @@
+<!--
+ * @Author: wangzhenggui jianjia.wzg@raycloud.com
+ * @Date: 2022-11-22 13:55:00
+ * @LastEditors: wangzhenggui jianjia.wzg@raycloud.com
+ * @LastEditTime: 2022-11-22 14:53:16
+ * @FilePath: /monitor/example/request.html
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by wangzhenggui jianjia.wzg@raycloud.com, All Rights Reserved. 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="../dist/umd/monitor.min.js"></script>
+</head>
+<body>
+  <script>
+    Monitor.default.init({
+        appId: '20001',
+      }, {
+        url: 'http://localhost:80/apiReport'
+      })
+      // XHR 测试
+    // $(document).ready(function(){
+    //   $.get("http://localhost:80/api/testSure1",function(data,status){
+    //     console.log(data, status)
+    //   });
+    //   setTimeout(() => {
+    //     $.get("http://localhost:80/api/testSure",function(data,status){
+    //       console.log(data, status)
+    //     });
+    //   }, 5000)
+    // });
+    // Fetch测试
+    fetch('http://localhost:80/api/testSure', {
+      method: 'GET'
+    }).then((res) => {
+      console.log('res', res)
+    })
+    setTimeout(() => {
+      fetch('http://localhost:80/api/testSure1', {
+        method: 'GET'
+      }).then((res) => {
+      console.log('res', res)
+    }).catch((err) => {
+      console.log('err', err)
+    })
+    }, 5000)
+  </script>
+</body>
+</html>

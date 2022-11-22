@@ -1,48 +1,76 @@
+/*
+ * @Author: wangzhenggui jianjia.wzg@raycloud.com
+ * @Date: 2022-11-21 15:09:46
+ * @LastEditors: wangzhenggui jianjia.wzg@raycloud.com
+ * @LastEditTime: 2022-11-22 15:26:21
+ * @FilePath: /monitor/src/utils/util.js
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by wangzhenggui jianjia.wzg@raycloud.com, All Rights Reserved. 
+ */
 export const cloneDeep = (origin) => {
-  if (typeof origin === 'object') {
-    const result = Array.isArray(origin) ? [] : {}
-    for (const key in origin) {
-      if (typeof origin[key] == 'object') {
-        result[key] = deepCopy(origin[key])
-      } else {
-        result[key] = origin[key]
-      }
+    if (typeof origin === 'object') {
+        const result = Array.isArray(origin) ? [] : {}
+        for (const key in origin) {
+            if (typeof origin[key] == 'object') {
+                result[key] = cloneDeep(origin[key])
+            } else {
+                result[key] = origin[key]
+            }
+        }
+
+        return result
     }
 
-    return result
-  }
-
-  return origin
+    return origin
 }
 
 export const getUUid = (len = 16, radix = 10) => {
-  var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
-  var uuid = [], i;
-  radix = radix || chars.length;
+    let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
+    let uuid = [], i
+    radix = radix || chars.length
 
-  if (len) {
+    if (len) {
     // Compact form
-    for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];
-  } else {
+        for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix]
+    } else {
     // rfc4122, version 4 form
-    var r;
+        let r
 
-    // rfc4122 requires these characters
-    uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
-    uuid[14] = '4';
+        // rfc4122 requires these characters
+        uuid[8] = '-'
+        uuid[13] = '-'
+        uuid[18] = '-'
+        uuid[23] = '-'
+        uuid[14] = '4'
 
-    // Fill in random data.  At i==19 set the high bits of clock sequence as
-    // per rfc4122, sec. 4.1.5
-    for (i = 0; i < 36; i++) {
-      if (!uuid[i]) {
-        r = 0 | Math.random() * 16;
-        uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
-      }
+        // Fill in random data.  At i==19 set the high bits of clock sequence as
+        // per rfc4122, sec. 4.1.5
+        for (i = 0; i < 36; i++) {
+            if (!uuid[i]) {
+                r = 0 | Math.random() * 16
+                uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r]
+            }
+        }
     }
-  }
 
-  return uuid.join('');
+    return uuid.join('')
 }
 
 export const isSupportSendBeacon = () => !!window.navigator?.sendBeacon
 export const getPageInfo = () => window.location.href
+
+export const formatTime = (time) => {
+    let today = time ? new Date(time) : new Date()
+    // 日期
+    let DD = String(today.getDate()).padStart(2, '0') // 获取日
+    let MM = String(today.getMonth() + 1).padStart(2, '0') // 获取月份，1 月为 0
+    let yyyy = today.getFullYear() // 获取年
+
+    // 时间
+    const hh = String(today.getHours()).padStart(2, '0') // 获取当前小时数(0-23)
+    const mm = String(today.getMinutes()).padStart(2, '0') // 获取当前分钟数(0-59)
+    const ss = String(today.getSeconds()).padStart(2, '0') // 获取当前秒数(0-59)
+    today = yyyy + '-' + MM + '-' + DD + ' ' + hh + ':' + mm + ':' + ss
+    return today
+}

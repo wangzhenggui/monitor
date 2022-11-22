@@ -1,0 +1,38 @@
+<!--
+ * @Author: wangzhenggui jianjia.wzg@raycloud.com
+ * @Date: 2022-11-21 15:37:46
+ * @LastEditors: wangzhenggui jianjia.wzg@raycloud.com
+ * @LastEditTime: 2022-11-22 09:32:39
+ * @FilePath: /monitor/example/errorTest.html
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by wangzhenggui jianjia.wzg@raycloud.com, All Rights Reserved. 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../dist/umd/monitor.min.js"></script>
+</head>
+<body>
+  <script>
+    (function() {
+      Monitor.default.init({
+        appId: '20001',
+      }, {
+        url: 'http://localhost:80/apiReport'
+      })
+    })()
+    console.error('上报console错误信息')
+    throw Error('test')
+    // js异常
+    const a = {};
+    const b = a.c.d.e;
+  </script>
+  <img src="http://www.hjhdsahj.com/123.png"/>
+  <script src="./123.js"></script>
+</body>
+</html>
