@@ -2,7 +2,7 @@
  * @Author: wangzhenggui jianjia.wzg@raycloud.com
  * @Date: 2022-11-21 15:09:46
  * @LastEditors: wangzhenggui jianjia.wzg@raycloud.com
- * @LastEditTime: 2022-11-22 13:53:20
+ * @LastEditTime: 2022-11-23 16:21:54
  * @FilePath: /monitor/src/index.js
  * @Description: 
  * 
@@ -10,8 +10,10 @@
  */
 import { setOptions } from './options'
 import config, { setConfig } from './config'
+import { lazySendCache } from './report'
 import errorHandle from './error'
 import requestHandle from './request'
+import { formatTime, getPageInfo } from './utils/util'
 const Monitor = {
     init(options = {}, customizeConfig = {}) {
         setOptions(options)
@@ -21,6 +23,20 @@ const Monitor = {
         }
         config.sendError && errorHandle()
         config.sendRequest && requestHandle()
+    },
+    setOptions,
+    automaticReport(params = {}) {
+        const now = Date.now()
+        lazySendCache({
+            type: 'log',
+            subType: 'custom',
+            startTime: now,
+            startTimeFm: formatTime(now),
+            info: {
+                ...params,
+            },
+            pageSource: getPageInfo(),
+        })
     },
 }
 
