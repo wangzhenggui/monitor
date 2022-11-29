@@ -2,12 +2,17 @@
  * @Author: wangzhenggui jianjia.wzg@raycloud.com
  * @Date: 2022-11-21 15:09:46
  * @LastEditors: wangzhenggui jianjia.wzg@raycloud.com
- * @LastEditTime: 2022-11-22 15:26:21
+ * @LastEditTime: 2022-11-29 11:16:24
  * @FilePath: /monitor/src/utils/util.js
  * @Description: 
  * 
  * Copyright (c) 2022 by wangzhenggui jianjia.wzg@raycloud.com, All Rights Reserved. 
  */
+import { getFailQueue, resetFailQueue } from '../cache/failQueue'
+import { sendData, send } from '../report'
+import { getRecords, clearRecordPool } from '../cache/index'
+import config from '../config'
+
 export const cloneDeep = (origin) => {
     if (typeof origin === 'object') {
         const result = Array.isArray(origin) ? [] : {}
@@ -74,3 +79,44 @@ export const formatTime = (time) => {
     today = yyyy + '-' + MM + '-' + DD + ' ' + hh + ':' + mm + ':' + ss
     return today
 }
+
+// 上报 上报错误的日志信息
+export const failRecordSend = () => {
+    const queue = getFailQueue()
+    if (queue?.length === 0) return undefined
+    queue.splice(0, 6).map(item => sendData(config.url, item))
+    resetFailQueue(queue)
+}
+
+export const listenPageHide = () => {
+    window.addEventListener('beforeunload', () => {
+        const data = getRecords()
+        if (data.length) {
+            send(data, true)
+            clearRecordPool()
+        }
+    })
+}
+
+export function listenPageLoad(callback) {
+    if (document.readyState === 'complete') {
+        callback()
+    } else {
+        const onLoad = () => {
+            callback()
+            window.removeEventListener('load', onLoad, true)
+        }
+
+        window.addEventListener('load', onLoad, true)
+    }
+}
+
+export function listenPageStart(callback) {
+    window.addEventListener('pageshow', event => {
+        if (event.persisted) {
+            callback(event)
+        }
+    }, true)
+}
+
+export const isSupportPerformanceObserver = () => !!window.PerformanceObserver

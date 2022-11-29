@@ -1,9 +1,9 @@
 <!--
  * @Author: wangzhenggui jianjia.wzg@raycloud.com
- * @Date: 2022-11-21 15:37:46
+ * @Date: 2022-11-22 13:55:00
  * @LastEditors: wangzhenggui jianjia.wzg@raycloud.com
- * @LastEditTime: 2022-11-29 10:29:37
- * @FilePath: /monitor/example/errorTest.html
+ * @LastEditTime: 2022-11-29 11:23:30
+ * @FilePath: /monitor/example/performance.html
  * @Description: 
  * 
  * Copyright (c) 2022 by wangzhenggui jianjia.wzg@raycloud.com, All Rights Reserved. 
@@ -15,24 +15,28 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    body {
+      height: 100px;
+      background: red;
+    }
+  </style>
   <script src="../dist/umd/kmkf-monitor.min.js"></script>
 </head>
 <body>
   <script>
-    (function() {
-      Monitor.default.init({
+    Monitor.default.init({
         appId: '20001',
       }, {
-        url: 'http://localhost:80/apiReport'
+        url: 'http://localhost:80/apiReport',
+        sendPerf: true,
       })
-    })()
-    console.error('上报console错误信息')
-    throw Error('test')
-    // js异常
-    const a = {};
-    const b = a.c.d.e;
   </script>
-  <img src="http://www.hjhdsahj.com/123.png"/>
-  <script src="./123.js"></script>
+  <script>
+    setTimeout(() => {
+      document.body.innerHTML = '123456'
+    }, 1000)
+    
+  </script>
 </body>
 </html>

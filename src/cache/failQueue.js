@@ -2,7 +2,7 @@
  * @Author: wangzhenggui jianjia.wzg@raycloud.com
  * @Date: 2022-11-21 15:09:46
  * @LastEditors: wangzhenggui jianjia.wzg@raycloud.com
- * @LastEditTime: 2022-11-21 16:40:35
+ * @LastEditTime: 2022-11-29 09:54:13
  * @FilePath: /monitor/src/cache/failQueue.js
  * @Description: 
  * 
@@ -15,7 +15,15 @@ export const saveFailQueue = (list) => {
     queue.push(list)
 }
 
+export const resetFailQueue = (list = []) => {
+    localStorage.setItem(CACHE_FAIL_SEND_QUEUE, JSON.stringify(list))
+}
+
 export const getFailQueue = () => {
     const queue = JSON.parse(localStorage.getItem(CACHE_FAIL_SEND_QUEUE) || '[]')
     return queue
+}
+
+export const clearFailQueue = () => {
+    localStorage.setItem(CACHE_FAIL_SEND_QUEUE, '[]')
 }

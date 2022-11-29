@@ -2,7 +2,7 @@
  * @Author: wangzhenggui jianjia.wzg@raycloud.com
  * @Date: 2022-11-21 15:09:46
  * @LastEditors: wangzhenggui jianjia.wzg@raycloud.com
- * @LastEditTime: 2022-11-23 16:21:54
+ * @LastEditTime: 2022-11-29 10:30:48
  * @FilePath: /monitor/src/index.js
  * @Description: 
  * 
@@ -13,9 +13,12 @@ import config, { setConfig } from './config'
 import { lazySendCache } from './report'
 import errorHandle from './error'
 import requestHandle from './request'
-import { formatTime, getPageInfo } from './utils/util'
+import performanceHandle from './performance'
+import { formatTime, getPageInfo, failRecordSend, listenPageHide } from './utils/util'
+
 const Monitor = {
     init(options = {}, customizeConfig = {}) {
+        failRecordSend()
         setOptions(options)
         setConfig(customizeConfig)
         if (!config.open) {
@@ -23,6 +26,8 @@ const Monitor = {
         }
         config.sendError && errorHandle()
         config.sendRequest && requestHandle()
+        config.sendPerf && performanceHandle()
+        listenPageHide()
     },
     setOptions,
     automaticReport(params = {}) {
