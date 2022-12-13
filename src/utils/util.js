@@ -30,6 +30,8 @@ export const cloneDeep = (origin) => {
     return origin
 }
 
+export const some = (list, fn) => list.reduce((cur, nxt) => cur || fn(nxt), false)
+
 export const getUUid = (len = 16, radix = 10) => {
     let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
     let uuid = [], i

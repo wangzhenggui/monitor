@@ -23,7 +23,8 @@
       Monitor.default.init({
         appId: '20001',
       }, {
-        url: 'http://localhost:80/apiReport'
+        url: 'http://localhost:80/apiReport',
+        blackUrlList: ['www.hjhdsahj.com', '127.0.0.1']
       })
     })()
     console.error('上报console错误信息')

@@ -9,7 +9,8 @@
  * Copyright (c) 2022 by wangzhenggui jianjia.wzg@raycloud.com, All Rights Reserved. 
  */
 import { lazySendCache } from '../report'
-import { getPageInfo, formatTime } from '../utils/util'
+import { getPageInfo, formatTime, some } from '../utils/util'
+import config from '../config'
 
 const watchRunTimeError = () => {
     const originalOnError = window.onerror
@@ -67,8 +68,8 @@ const watchResourceLoadError = () => {
         const target = e.target
         if (!target) return
         const now = Date.now()
-        if (target.src || target.href) {
-            const url = target.src || target.href
+        const url = target.src || target.href
+        if (url && !some(config.blackUrlList, (name) => url.includes(name))) {
             lazySendCache({
                 type: 'error',
                 subType: 'resource-load-error',

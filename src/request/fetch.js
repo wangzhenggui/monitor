@@ -9,7 +9,8 @@
  * Copyright (c) 2022 by wangzhenggui jianjia.wzg@raycloud.com, All Rights Reserved. 
  */
 import { lazySendCache } from '../report'
-import { getPageInfo, formatTime } from '../utils/util'
+import { getPageInfo, formatTime, some } from '../utils/util'
+import monitorConfig from '../config'
 
 const handleFetch = () => {
     const originFetch = window.fetch
@@ -33,8 +34,10 @@ const handleFetch = () => {
             reportData.info.time = reportData.endTime - reportData.startTime
             const data = res.clone()
             reportData.info.status = data.status
-            lazySendCache(reportData)
-            return res
+            if (!some(monitorConfig.blackUrlList, (name) => url.includes(name))) {
+                lazySendCache(reportData)
+                return res
+            }
         })
         .catch(err => {
             reportData.endTime = Date.now()

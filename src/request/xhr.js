@@ -10,7 +10,7 @@
  */
 import config from '../config'
 import { lazySendCache } from '../report'
-import { getPageInfo, formatTime } from '../utils/util'
+import { getPageInfo, formatTime, some } from '../utils/util'
 
 const handleXhr = () => {
     const proto = window.XMLHttpRequest.prototype
@@ -32,22 +32,23 @@ const handleXhr = () => {
             if (url.indexOf(config.url) > -1) {
                 return
             }
-
-            lazySendCache({
-                type: 'request',
-                subType: 'xhr',
-                startTime,
-                startTimeFm: formatTime(startTime),
-                endTime,
-                endTimeFm: formatTime(endTime),
-                info: {
-                    url,
-                    status,
-                    time: endTime - startTime,
-                    method: (method || 'GET').toUpperCase(),
-                },
-                pageSource: getPageInfo(),
-            })
+            if (!some(config.blackUrlList, (name) => url.includes(name))) {
+                lazySendCache({
+                    type: 'request',
+                    subType: 'xhr',
+                    startTime,
+                    startTimeFm: formatTime(startTime),
+                    endTime,
+                    endTimeFm: formatTime(endTime),
+                    info: {
+                        url,
+                        status,
+                        time: endTime - startTime,
+                        method: (method || 'GET').toUpperCase(),
+                    },
+                    pageSource: getPageInfo(),
+                })
+            }
           
             this.removeEventListener('loadend', onLoadend, true)
         }
