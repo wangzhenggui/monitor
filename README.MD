@@ -60,3 +60,9 @@ config为日志上报功能配置项
 - sendPerf 开启性能检测
 - blackUrlList 上报黑名单 针对一些内嵌的方式接入，会上报很多其他网站的日志信息到ES中，这里加个上报黑名单；上报黑名单只会针对资源加载和接口调用有效；一般配置域名既可以 例如：['im.kwaixiaodian.com'] 不希望快手的接口上报
 
+### API
+- setOptions({})
+  - 配置options
+
+- automaticReport({})
+ - 手动上报日志
