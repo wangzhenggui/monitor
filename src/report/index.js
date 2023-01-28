@@ -26,7 +26,7 @@ export const send = (data = [], immediately = false) => {
     
     const body = JSON.stringify({
         id: `${options.appId}_${new Date().getTime()}_${getUUid()}`,
-        options,
+        options: [], // TODO: 该参数可以去除，options内容存放在每条data中
         data,
     })
     if (immediately) {

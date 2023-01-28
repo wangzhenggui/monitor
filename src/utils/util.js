@@ -65,7 +65,7 @@ export const getUUid = (len = 16, radix = 10) => {
 }
 
 export const isSupportSendBeacon = () => !!window.navigator?.sendBeacon
-export const getPageInfo = () => window.location.href
+export const getPageInfo = () => decodeURIComponent(window.location.href)
 
 export const formatTime = (time) => {
     let today = time ? new Date(time) : new Date()

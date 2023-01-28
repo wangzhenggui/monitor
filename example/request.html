@@ -26,31 +26,32 @@
         url: 'http://localhost:80/apiReport'
       })
       // XHR 测试
-    // $(document).ready(function(){
-    //   $.get("http://localhost:80/api/testSure1",function(data,status){
-    //     console.log(data, status)
-    //   });
-    //   setTimeout(() => {
-    //     $.get("http://localhost:80/api/testSure",function(data,status){
-    //       console.log(data, status)
-    //     });
-    //   }, 5000)
-    // });
+    $(document).ready(function(){
+      $.get("http://localhost:80/api/testSure1",function(data,status){
+        console.log(data, status)
+      });
+      setTimeout(() => {
+        $.post("http://localhost:80/api/testSure",{a: 123},function(data,status){
+          console.log(data, status)
+        });
+      }, 5000)
+    });
     // Fetch测试
-    fetch('http://localhost:80/api/testSure', {
-      method: 'GET'
-    }).then((res) => {
-      console.log('res', res)
-    })
-    setTimeout(() => {
-      fetch('http://localhost:80/api/testSure1', {
-        method: 'GET'
-      }).then((res) => {
-      console.log('res', res)
-    }).catch((err) => {
-      console.log('err', err)
-    })
-    }, 5000)
+    // fetch('http://localhost:80/api/testSure', {
+    //   method: 'POST',
+    //   body: JSON.stringify({a:'123'})
+    // }).then((res) => {
+    //   console.log('res', res)
+    // })
+    // setTimeout(() => {
+    //   fetch('http://localhost:80/api/testSure1', {
+    //     method: 'GET'
+    //   }).then((res) => {
+    //   console.log('res', res)
+    // }).catch((err) => {
+    //   console.log('err', err)
+    // })
+    // }, 5000)
   </script>
 </body>
 </html>

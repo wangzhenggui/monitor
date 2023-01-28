@@ -11,6 +11,7 @@
 import config from '../config'
 import { lazySendCache } from '../report'
 import { getPageInfo, formatTime, some } from '../utils/util'
+import options from '../options'
 
 const handleXhr = () => {
     const proto = window.XMLHttpRequest.prototype
@@ -41,11 +42,13 @@ const handleXhr = () => {
                     endTime,
                     endTimeFm: formatTime(endTime),
                     info: {
+                        ...args,
                         url,
                         status,
                         time: endTime - startTime,
                         method: (method || 'GET').toUpperCase(),
                     },
+                    options,
                     pageSource: getPageInfo(),
                 })
             }

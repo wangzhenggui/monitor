@@ -11,6 +11,7 @@
 import { lazySendCache } from '../report'
 import { getPageInfo, formatTime, some } from '../utils/util'
 import config from '../config'
+import options from '../options'
 
 const watchRunTimeError = () => {
     const originalOnError = window.onerror
@@ -58,6 +59,7 @@ const watchConsoleError = () => {
             info: {
                 content: args,
             },
+            options,
             pageSource: getPageInfo(),
         })
     }
