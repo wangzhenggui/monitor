@@ -25,7 +25,7 @@ app.post('/apiReport', (req, res) => {
     })
 })
 
-app.get('/api/testSure', (req, res) => {
+app.post('/api/testSure', (req, res) => {
     res.send({
         success: true,
         status: 200,
