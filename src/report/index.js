@@ -8,7 +8,7 @@
  * 
  * Copyright (c) 2022 by wangzhenggui jianjia.wzg@raycloud.com, All Rights Reserved. 
  */
-import { isSupportSendBeacon, getUUid } from '../utils/util'
+import { isSupportSendBeacon, getUUid, chunk } from '../utils/util'
 import { saveRecord, getRecords, clearRecordPool } from '../cache'
 import { saveFailQueue } from '../cache/failQueue'
 import config from '../config'
@@ -19,26 +19,33 @@ let timer
  * 降级处理，有些浏览器不兼容sendBeacon这个API，使用XHR方式发送
  */
 export const sendData = isSupportSendBeacon() ? window.navigator.sendBeacon.bind(window.navigator) : sendByXhr
+const sendDataWrap = (id, list) => {
+    list.map(i => {
+        sendData(config.url, JSON.stringify({
+            id,
+            data: i,
+        }))
+        return null
+    })
+}
 export const send = (data = [], immediately = false) => {
     if (!config.url) {
         return console.error('监控系统,必须拥有url属性配置')
     }
-    
-    const body = JSON.stringify({
-        id: `${options.appId}_${new Date().getTime()}_${getUUid()}`,
-        data,
-    })
+    const id = `${options.appId}_${new Date().getTime()}_${getUUid()}`
+    const chunkData = chunk(data, config.singleSendMax || 10)
     if (immediately) {
-        return sendData(config.url, body)
+        sendDataWrap(id, chunkData)
+        return
     }
     if (window.requestIdleCallback) {
     // 在浏览器空闲时刻发送数据
         window.requestIdleCallback(() => {
-            sendData(config.url, body)
+            sendDataWrap(id, chunkData)
         }, { timeout: 1000 })
     } else {
         setTimeout(() => {
-            sendData(config.url, body)
+            sendDataWrap(id, chunkData)
         })
     }
 }

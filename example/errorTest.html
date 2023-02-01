@@ -24,10 +24,18 @@
         appId: '20001',
       }, {
         url: 'http://localhost:80/apiReport',
-        blackUrlList: ['www.hjhdsahj.com', '127.0.0.1']
+        blackUrlList: ['www.hjhdsahj.com', '127.0.0.1'],
+        singleSendMax: 10
       })
     })()
-    console.error('上报console错误信息')
+    console.error('上报console错误信息1')
+    console.error('上报console错误信息2')
+    console.error('上报console错误信息3')
+    console.error('上报console错误信息4')
+    console.error('上报console错误信息5')
+    console.error('上报console错误信息6')
+    console.error('上报console错误信息7')
+    console.error('上报console错误信息8')
     throw Error('test')
     // js异常
     const a = {};

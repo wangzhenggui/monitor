@@ -8,7 +8,7 @@
  * 
  * Copyright (c) 2022 by wangzhenggui jianjia.wzg@raycloud.com, All Rights Reserved. 
  */
-import { setOptions } from './options'
+import options, { setOptions } from './options'
 import config, { setConfig } from './config'
 import { lazySendCache } from './report'
 import errorHandle from './error'
@@ -40,6 +40,7 @@ const Monitor = {
             info: {
                 ...params,
             },
+            options,
             pageSource: getPageInfo(),
         })
     },

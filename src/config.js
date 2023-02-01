@@ -17,6 +17,7 @@ const config = {
     sendRequest: true, //  是否上报request请求
     sendPerf: false, // 是否上报页面性能
     blackUrlList: [], // 黑名单列表 - 针对加载资源和接口错误上报控制
+    singleSendMax: 10,
 }
 
 export default config

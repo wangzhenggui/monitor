@@ -122,3 +122,12 @@ export function listenPageStart(callback) {
 }
 
 export const isSupportPerformanceObserver = () => !!window.PerformanceObserver
+
+export const chunk = (list = [], number) => {
+    let finalList = []
+    if (number === 0) return finalList
+    for (let i = 0; i < Math.ceil(list?.length / number); i++) {
+        finalList.push(list.slice(i * number, (i + 1) * number))
+    }
+    return finalList
+}
