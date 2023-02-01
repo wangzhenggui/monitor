@@ -81,7 +81,7 @@ const watchResourceLoadError = () => {
                     url,
                     type: target.tagName,
                     html: target.outerHTML,
-                    paths: e.path.map(item => item.tagName).filter(Boolean),
+                    paths: e?.path?.map(item => item.tagName)?.filter(Boolean),
                 },
                 pageSource: getPageInfo(),
             })
