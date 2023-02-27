@@ -20,13 +20,18 @@ let timer
  */
 export const sendData = isSupportSendBeacon() ? window.navigator.sendBeacon.bind(window.navigator) : sendByXhr
 const sendDataWrap = (id, list) => {
-    list.map(i => {
-        sendData(config.url, JSON.stringify({
-            id,
-            data: i,
-        }))
-        return null
-    })
+    list.forEach((i => {
+        try {
+            const stringifyData = JSON.stringify({
+                id,
+                data: i,
+            })
+            sendData(config.url, stringifyData)
+        } catch (e) {
+            console.error('数据转换失败', e)
+            sendData(config.url)
+        }
+    }))
 }
 export const send = (data = [], immediately = false) => {
     if (!config.url) {
