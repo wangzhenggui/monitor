@@ -16,6 +16,7 @@ const config = {
     sendError: true, // 是否上报 js error
     sendRequest: true, //  是否上报request请求
     sendPerf: false, // 是否上报页面性能
+    startBehavior: true, // 是否开启行为上报
     blackUrlList: [], // 黑名单列表 - 针对加载资源和接口错误上报控制
     singleSendMax: 10,
 }

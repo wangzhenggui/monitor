@@ -58,6 +58,9 @@ config为日志上报功能配置项
 - sendError 上报错误 包括js允许时异常、资源加载异常、console.error 这些都会上报
 - sendRequest 上报请求错误异常
 - sendPerf 开启性能检测
+- startBehavior 开启行为上报
+  - 目前只有点击行为上报 并且dom节点上面必须有data-spm-click时才会进行上报,只有当存在data-spm-click这个点位信息时，才会认为其是有意义的点位
+  - 并且最好在页面初始化时自动设置a点位和b点位到options中，这样可以通过a、b点位快速查找,目前只能针对Html原生标签上绑定才会获取到，针对ReactElement这些组件外层可能获取不到
 - blackUrlList 上报黑名单 针对一些内嵌的方式接入，会上报很多其他网站的日志信息到ES中，这里加个上报黑名单；上报黑名单只会针对资源加载和接口调用有效；一般配置域名既可以 例如：['im.kwaixiaodian.com'] 不希望快手的接口上报
 
 ### API
@@ -66,3 +69,14 @@ config为日志上报功能配置项
 
 - automaticReport({})
  - 手动上报日志
+
+- sendClick({spmClick: 'd01111', spmParam: '携带参数' })
+
+- auto('b1234')
+
+
+### 埋点约定
+a 表示站点
+b 表示页面
+c 表示区块
+d 表示点击dom点

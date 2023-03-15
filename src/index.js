@@ -14,6 +14,7 @@ import { lazySendCache } from './report'
 import errorHandle from './error'
 import requestHandle from './request'
 import performanceHandle from './performance'
+import behavior from './behavior'
 import { formatTime, getPageInfo, failRecordSend, listenPageHide } from './utils/util'
 
 const Monitor = {
@@ -27,6 +28,7 @@ const Monitor = {
         config.sendError && errorHandle()
         config.sendRequest && requestHandle()
         config.sendPerf && performanceHandle()
+        config.startBehavior && behavior()
         listenPageHide()
     },
     setOptions,
@@ -39,6 +41,36 @@ const Monitor = {
             startTimeFm: formatTime(now),
             info: {
                 ...params,
+            },
+            options,
+            pageSource: getPageInfo(),
+        })
+    },
+    // 埋点手动上报
+    sendClick(params) {
+        const now = Date.now()
+        lazySendCache({
+            type: 'behavior',
+            subType: 'click',
+            startTime: now,
+            startTimeFm: formatTime(now),
+            info: {
+                dataset: params,
+            },
+            options,
+            pageSource: getPageInfo(),
+        })
+    },
+    // 曝光手动上报
+    expo(params) {
+        const now = Date.now()
+        lazySendCache({
+            type: 'behavior',
+            subType: 'expo',
+            startTime: now,
+            startTimeFm: formatTime(now),
+            info: {
+                dataset: params,
             },
             options,
             pageSource: getPageInfo(),
