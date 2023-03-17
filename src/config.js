@@ -25,7 +25,7 @@ export default config
 
 export function setConfig(configs) {
     for (const key in configs) {
-        if (configs[key]) {
+        if (Reflect.has(configs, key)) {
             config[key] = configs[key]
         }
     }

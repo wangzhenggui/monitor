@@ -17,7 +17,7 @@ export default originOptions
 
 export function setOptions(options) {
     for (const key in options) {
-        if (options[key]) {
+        if (Reflect.has(options, key)) {
             originOptions[key] = options[key]
         }
     }
