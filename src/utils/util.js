@@ -9,7 +9,7 @@
  * Copyright (c) 2022 by wangzhenggui jianjia.wzg@raycloud.com, All Rights Reserved. 
  */
 import { getFailQueue, resetFailQueue } from '../cache/failQueue'
-import { sendData, send } from '../report'
+import { sendDataFn, send } from '../report'
 import { getRecords, clearRecordPool } from '../cache/index'
 import config from '../config'
 
@@ -86,6 +86,7 @@ export const formatTime = (time) => {
 export const failRecordSend = () => {
     const queue = getFailQueue()
     if (queue?.length === 0) return undefined
+    const sendData = sendDataFn()
     queue.splice(0, 6).map(item => sendData(config.url, item))
     resetFailQueue(queue)
 }

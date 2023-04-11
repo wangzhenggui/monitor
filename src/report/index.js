@@ -18,8 +18,10 @@ let timer
 /**
  * 降级处理，有些浏览器不兼容sendBeacon这个API，使用XHR方式发送
  */
-export const sendData = isSupportSendBeacon() ? window.navigator.sendBeacon.bind(window.navigator) : sendByXhr
+export const sendDataFn = () => (config.supportSendBeacon && isSupportSendBeacon()
+    ? window.navigator.sendBeacon.bind(window.navigator) : sendByXhr)
 const sendDataWrap = (id, list) => {
+    const sendData = sendDataFn()
     list.forEach((i => {
         try {
             const stringifyData = JSON.stringify({
@@ -28,14 +30,14 @@ const sendDataWrap = (id, list) => {
             })
             sendData(config.url, stringifyData)
         } catch (e) {
-            console.error('数据转换失败', e)
+            console.warn('数据转换失败', e)
             sendData(config.url)
         }
     }))
 }
 export const send = (data = [], immediately = false) => {
     if (!config.url) {
-        return console.error('监控系统,必须拥有url属性配置')
+        return console.warn('监控系统,必须拥有url属性配置')
     }
     const id = `${options.appId}_${new Date().getTime()}_${getUUid()}`
     const chunkData = chunk(data, config.singleSendMax || 10)

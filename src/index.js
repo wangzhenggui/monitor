@@ -19,12 +19,12 @@ import { formatTime, getPageInfo, failRecordSend, listenPageHide } from './utils
 
 const Monitor = {
     init(options = {}, customizeConfig = {}) {
-        failRecordSend()
         setOptions(options)
         setConfig(customizeConfig)
         if (!config.open) {
             return console.warn('监控功能已关闭')
         }
+        failRecordSend()
         config.sendError && errorHandle()
         config.sendRequest && requestHandle()
         config.sendPerf && performanceHandle()

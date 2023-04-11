@@ -19,6 +19,7 @@ const config = {
     startBehavior: true, // 是否开启行为上报
     blackUrlList: [], // 黑名单列表 - 针对加载资源和接口错误上报控制
     singleSendMax: 10,
+    supportSendBeacon: true,
 }
 
 export default config
