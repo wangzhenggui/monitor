@@ -80,3 +80,8 @@ a 表示站点
 b 表示页面
 c 表示区块
 d 表示点击dom点
+
+
+### 错误类型
+主类型：error
+子类型：resource-load-error/js-runtime-error/console-error
