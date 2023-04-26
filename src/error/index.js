@@ -70,6 +70,10 @@ const watchResourceLoadError = () => {
     window.addEventListener('error', e => {
         const target = e.target
         if (!target) return
+        // 当IMG标签的src属性是空的时候，不认为是资源加载失败
+        if (target.tagName?.toUpperCase() === 'IMG' && !target.currentSrc) {
+            return
+        }
         const now = Date.now()
         const url = target.src || target.href
         if (url && !some(config.blackUrlList, (name) => url.includes(name))) {
