@@ -58,7 +58,7 @@ export const send = (data = [], immediately = false) => {
 }
 
 export const lazySendCache = (data) => {
-    saveRecord(data)
+    saveRecord({ ...data, now: performance?.now() })
     // 防抖
     clearTimeout(timer)
     timer = setTimeout(() => {
