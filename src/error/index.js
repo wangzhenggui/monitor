@@ -36,7 +36,7 @@ const watchRunTimeError = () => {
                     columnNumber,
                     errorObj,
                 },
-                options,
+                options: { ...options },
                 pageSource: getPageInfo(),
             })
         }
@@ -60,7 +60,7 @@ const watchConsoleError = () => {
             info: {
                 content: args,
             },
-            options,
+            options: { ...options },
             pageSource: getPageInfo(),
         })
     }
@@ -88,7 +88,7 @@ const watchResourceLoadError = () => {
                     html: target.outerHTML,
                     paths: e?.path?.map(item => item.tagName)?.filter(Boolean),
                 },
-                options,
+                options: { ...options },
                 pageSource: getPageInfo(),
             })
         }

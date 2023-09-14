@@ -42,7 +42,7 @@ const Monitor = {
             info: {
                 ...params,
             },
-            options,
+            options: { ...options },
             pageSource: getPageInfo(),
         })
     },
@@ -57,7 +57,7 @@ const Monitor = {
             info: {
                 dataset: params,
             },
-            options,
+            options: { ...options },
             pageSource: getPageInfo(),
         })
     },
@@ -72,7 +72,7 @@ const Monitor = {
             info: {
                 dataset: params,
             },
-            options,
+            options: { ...options },
             pageSource: getPageInfo(),
         })
     },

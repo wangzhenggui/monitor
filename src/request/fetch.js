@@ -36,7 +36,7 @@ const handleFetch = () => {
             reportData.info.time = reportData.endTime - reportData.startTime
             const data = res.clone()
             reportData.info.status = data.status
-            reportData.options = options
+            reportData.options = { ...options }
             if (!some(monitorConfig.blackUrlList, (name) => url.includes(name))) {
                 lazySendCache(reportData)
                 return res
@@ -48,7 +48,7 @@ const handleFetch = () => {
             reportData.info.time = reportData.endTime - reportData.startTime
             reportData.info.status = 0
             reportData.info.success = false
-            reportData.options = options
+            reportData.options = { ...options }
             lazySendCache(reportData)
             throw err
         })

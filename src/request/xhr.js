@@ -48,7 +48,7 @@ const handleXhr = () => {
                         time: endTime - startTime,
                         method: (method || 'GET').toUpperCase(),
                     },
-                    options,
+                    options: { ...options },
                     pageSource: getPageInfo(),
                 })
             }

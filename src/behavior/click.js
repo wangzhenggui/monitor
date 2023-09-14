@@ -16,7 +16,7 @@ export default function onclick() {
                         paths: event.path?.map(item => item.tagName).filter(Boolean),
                         dataset: target?.dataset,
                     },
-                    options,
+                    options: { ...options },
                     pageSource: getPageInfo(),
                 })
             }
