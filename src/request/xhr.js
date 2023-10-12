@@ -42,7 +42,7 @@ const handleXhr = () => {
                     endTime,
                     endTimeFm: formatTime(endTime),
                     info: {
-                        body: args,
+                        body: args?.length > 0 ? args[0] : args,
                         url,
                         status,
                         time: endTime - startTime,
