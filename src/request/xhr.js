@@ -42,7 +42,9 @@ const handleXhr = () => {
                     endTime,
                     endTimeFm: formatTime(endTime),
                     info: {
-                        body: args?.length > 0 ? args[0] : args,
+                        body: typeof args === 'object'
+                            ? JSON.stringify(args)
+                            : args,
                         url,
                         status,
                         time: endTime - startTime,
