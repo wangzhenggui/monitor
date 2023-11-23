@@ -41,15 +41,13 @@ const handleXhr = () => {
                     startTimeFm: formatTime(startTime),
                     endTime,
                     endTimeFm: formatTime(endTime),
-                    info: {
-                        body: typeof args === 'object'
-                            ? JSON.stringify(args)
-                            : args,
-                        url,
-                        status,
-                        time: endTime - startTime,
-                        method: (method || 'GET').toUpperCase(),
-                    },
+                    url,
+                    status,
+                    time: endTime - startTime,
+                    method: (method || 'GET').toUpperCase(),
+                    info: JSON.stringify({
+                        body: args,
+                    }),
                     options: { ...options },
                     pageSource: getPageInfo(),
                 })

@@ -22,24 +22,19 @@ const handleFetch = () => {
             subType: 'fetch',
             startTime: now,
             startTimeFm: formatTime(now),
-            info: {
-                ...config,
-                url: url?.url || url,
-                method: (config?.method || 'GET').toUpperCase(),
-            },
+            url: url?.url || url,
+            method: (config?.method || 'GET').toUpperCase(),
+            info: (typeof config === 'object' && config !== null) ? JSON.stringify(config) : config,
             pageSource: getPageInfo(),
         }
         return originFetch(url, config)
         .then((res) => {
             reportData.endTime = Date.now()
             reportData.endTimeFm = formatTime(reportData.endTime)
-            reportData.info.time = reportData.endTime - reportData.startTime
+            reportData.time = reportData.endTime - reportData.startTime
             const data = res.clone()
-            reportData.info.status = data.status
+            reportData.status = data.status
             reportData.options = { ...options }
-            reportData.info.body = typeof reportData.info.body === 'object'
-                ? JSON.stringify(reportData.info.body)
-                : reportData.info.body
             if (!some(monitorConfig.blackUrlList, (name) => url.includes(name))) {
                 lazySendCache(reportData)
                 return res
@@ -48,13 +43,10 @@ const handleFetch = () => {
         .catch((err) => {
             reportData.endTime = Date.now()
             reportData.endTimeFm = formatTime(reportData.endTime)
-            reportData.info.time = reportData.endTime - reportData.startTime
-            reportData.info.status = 0
-            reportData.info.success = false
+            reportData.time = reportData.endTime - reportData.startTime
+            reportData.status = 0
+            reportData.success = false
             reportData.options = { ...options }
-            reportData.info.body = typeof reportData.info.body === 'object'
-                ? JSON.stringify(reportData.info.body)
-                : reportData.info.body
             lazySendCache(reportData)
             throw err
         })
