@@ -22,7 +22,7 @@ const watchFp = () => {
             delete json.duration
 
             const reportData = {
-                info: {
+                fPInfo: {
                     ...json,
                 },
                 subType: entry.name,

@@ -29,7 +29,7 @@ const watchRunTimeError = () => {
                 subType: 'js-runtime-error',
                 startTime: now,
                 startTimeFm: formatTime(now),
-                info: {
+                jsRunTimeErrorInfo: {
                     errorMessage,
                     scriptURI,
                     lineNumber,
@@ -57,7 +57,7 @@ const watchConsoleError = () => {
             subType: 'console-error',
             startTime: now,
             startTimeFm: formatTime(now),
-            info: {
+            consoleErrorInfo: {
                 content: args,
             },
             options: { ...options },
@@ -82,7 +82,7 @@ const watchResourceLoadError = () => {
                 subType: 'resource-load-error',
                 startTime: now,
                 startTimeFm: formatTime(now),
-                info: {
+                resourceLoadErrorInfo: {
                     url,
                     type: target.tagName,
                     html: target.outerHTML,

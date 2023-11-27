@@ -41,7 +41,7 @@ const observeEvent = (entryType) => {
                 type: 'performance',
                 subType: entryType,
                 startTime: Date.now(),
-                info: {
+                entryTypeInfo: {
                     name: entry.name, // 资源名称
                     sourceType: entry.initiatorType, // 资源类型
                     duration: entry.duration, // 资源加载耗时

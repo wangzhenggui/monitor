@@ -39,7 +39,7 @@ const Monitor = {
             subType: 'custom',
             startTime: now,
             startTimeFm: formatTime(now),
-            info: {
+            customLogInfo: {
                 ...params,
             },
             options: { ...options },
@@ -54,7 +54,7 @@ const Monitor = {
             subType: 'click',
             startTime: now,
             startTimeFm: formatTime(now),
-            info: {
+            clickedInfo: {
                 dataset: params,
             },
             options: { ...options },
@@ -69,7 +69,7 @@ const Monitor = {
             subType: 'expo',
             startTime: now,
             startTimeFm: formatTime(now),
-            info: {
+            expoInfo: {
                 dataset: params,
             },
             options: { ...options },

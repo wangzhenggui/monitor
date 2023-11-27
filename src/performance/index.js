@@ -17,7 +17,7 @@ import { lazySendCache } from '../report'
 
 const sendPerformance = ({ id, name, delta, rating }) => {
     const reportData = {
-        info: {
+        performanceInfo: {
             id, name, delta, rating,
         },
         subType: name,

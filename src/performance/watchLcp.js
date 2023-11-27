@@ -18,7 +18,7 @@ const watchLcp = () => {
         }
         for (const entry of list.getEntries()) {
             const reportData = {
-                info: {
+                lcpInfo: {
                     duration: entry.startTime,
                 },
                 subType: 'largest-contentful-paint',

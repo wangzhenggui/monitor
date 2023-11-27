@@ -24,7 +24,7 @@ const handleFetch = () => {
             startTimeFm: formatTime(now),
             url: url?.url || url,
             method: (config?.method || 'GET').toUpperCase(),
-            info: (typeof config === 'object' && config !== null) ? JSON.stringify(config) : config,
+            fetchInfo: (typeof config === 'object' && config !== null) ? JSON.stringify(config) : config,
             pageSource: getPageInfo(),
         }
         return originFetch(url, config)

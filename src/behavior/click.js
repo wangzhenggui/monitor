@@ -11,7 +11,7 @@ export default function onclick() {
                     subType: 'click',
                     startTime: event.timeStamp,
                     startTimeFm: formatTime(event.timeStamp),
-                    info: {
+                    behaviorInfo: {
                         target: target.tagName,
                         paths: event.path?.map(item => item.tagName).filter(Boolean),
                         dataset: target?.dataset,

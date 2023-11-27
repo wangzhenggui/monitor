@@ -45,7 +45,7 @@ const handleXhr = () => {
                     status,
                     time: endTime - startTime,
                     method: (method || 'GET').toUpperCase(),
-                    info: JSON.stringify({
+                    xhrInfo: JSON.stringify({
                         body: args,
                     }),
                     options: { ...options },
