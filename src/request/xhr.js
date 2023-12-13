@@ -24,7 +24,23 @@ const handleXhr = () => {
     }
     proto.send = function send(...args) {
         this.startTime = Date.now()
-
+        const { url, method } = this
+        if (!some(config.blackUrlList, (name) => url.includes(name))) {
+            const time = Date.now()
+            lazySendCache({
+                type: 'request',
+                subType: 'xhrStart',
+                startTime: time,
+                startTimeFm: formatTime(time),
+                url,
+                method: (method || 'GET').toUpperCase(),
+                xhrInfo: JSON.stringify({
+                    body: args,
+                }),
+                options: { ...options },
+                pageSource: getPageInfo(),
+            })
+        }
         const onLoadend = () => {
             this.endTime = Date.now()
 
@@ -36,7 +52,7 @@ const handleXhr = () => {
             if (!some(config.blackUrlList, (name) => url.includes(name))) {
                 lazySendCache({
                     type: 'request',
-                    subType: 'xhr',
+                    subType: 'xhrEnd',
                     startTime,
                     startTimeFm: formatTime(startTime),
                     endTime,

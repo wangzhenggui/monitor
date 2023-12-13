@@ -6,11 +6,12 @@ export default function onclick() {
         window.addEventListener(eventType, event => {
             const target = event.target
             if (Reflect.has(target?.dataset, 'spmClick')) {
+                const time = Date.now()
                 lazySendCache({
                     type: 'behavior',
                     subType: 'click',
-                    startTime: event.timeStamp,
-                    startTimeFm: formatTime(event.timeStamp),
+                    startTime: time,
+                    startTimeFm: formatTime(time),
                     behaviorInfo: {
                         target: target.tagName,
                         paths: event.path?.map(item => item.tagName).filter(Boolean),

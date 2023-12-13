@@ -27,6 +27,12 @@ const handleFetch = () => {
             fetchInfo: (typeof config === 'object' && config !== null) ? JSON.stringify(config) : config,
             pageSource: getPageInfo(),
         }
+        if (!some(monitorConfig.blackUrlList, (name) => url.includes(name))) {
+            lazySendCache({
+                ...reportData,
+                subType: 'fetchStart',
+            })
+        }
         return originFetch(url, config)
         .then((res) => {
             reportData.endTime = Date.now()
@@ -36,7 +42,7 @@ const handleFetch = () => {
             reportData.status = data.status
             reportData.options = { ...options }
             if (!some(monitorConfig.blackUrlList, (name) => url.includes(name))) {
-                lazySendCache(reportData)
+                lazySendCache({ ...reportData, subType: 'fetchEnd' })
                 return res
             }
         })
@@ -47,7 +53,7 @@ const handleFetch = () => {
             reportData.status = 0
             reportData.success = false
             reportData.options = { ...options }
-            lazySendCache(reportData)
+            lazySendCache({ ...reportData, subType: 'fetchError' })
             throw err
         })
     }
