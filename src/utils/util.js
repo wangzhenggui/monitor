@@ -13,23 +13,6 @@ import { sendDataFn, send } from '../report'
 import { getRecords, clearRecordPool } from '../cache/index'
 import config from '../config'
 
-export const cloneDeep = (origin) => {
-    if (typeof origin === 'object') {
-        const result = Array.isArray(origin) ? [] : {}
-        for (const key in origin) {
-            if (typeof origin[key] == 'object') {
-                result[key] = cloneDeep(origin[key])
-            } else {
-                result[key] = origin[key]
-            }
-        }
-
-        return result
-    }
-
-    return origin
-}
-
 export const some = (list, fn) => list.reduce((cur, nxt) => cur || fn(nxt), false)
 
 export const getUUid = (len = 16, radix = 10) => {

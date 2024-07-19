@@ -8,7 +8,7 @@
  * 
  * Copyright (c) 2022 by wangzhenggui jianjia.wzg@raycloud.com, All Rights Reserved. 
  */
-import { cloneDeep } from '../utils/util'
+import cloneDeep from "lodash/cloneDeep"
 // 存储模块
 let cache = []
 export const saveRecord = (record) => {
