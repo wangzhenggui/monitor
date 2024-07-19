@@ -1,6 +1,6 @@
 {
   "name": "kmkf-monitor",
-  "version": "0.8.8",
+  "version": "0.8.9",
   "description": "监控 日志上报",
   "main": "index.js",
   "scripts": {
